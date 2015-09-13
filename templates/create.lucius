@@ -1,0 +1,8 @@
+.poll-option,
+.poll-title {
+	margin-bottom: 10px;
+}
+
+.hidden {
+	display: none;
+}

@@ -1,0 +1,11 @@
+<h1>Create
+<form target="@{CreateR}" data-bind="submit:$root.submitPoll">
+  <div class="poll-title">
+    <input type="text" class="form-control" placeholder="Question" data-bind="value: $root.pollTitle, valueUpdate: 'afterKeyDown'" tabindex="1" required>
+
+  <div id="poll-options" data-bind="foreach: options">
+    <div class="input-group poll-option">
+      <input type="text" placeholder="Option" class="form-control" data-bind="value: $data.text, valueUpdate: 'keyup', attr: { tabindex: $index()+2 }"/>
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" data-bind="click: $data.clear">Clear
+  <button class="btn btn-primary" type="submit">Create Poll

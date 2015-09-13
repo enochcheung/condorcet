@@ -1,0 +1,11 @@
+// starting devel server
+stack exec -- yesod devel
+
+// Using GHCi with yesod Import.hs
+stack exec -- ghci -XTemplateHaskell -XTypeFamilies -XDeriveDataTypeable -XOverloadedStrings -XGADTs -XMultiParamTypeClasses -XQuasiQuotes -XCPP Import.hs
+
+// Loading handler
+:l Handler/Condorcet.hs
+
+// Reload
+:r

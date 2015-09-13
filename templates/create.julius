@@ -1,0 +1,64 @@
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+(function() {
+
+	var viewModel = {
+		pollTitle: ko.observable(""),
+		options: ko.observableArray(),
+		submitPoll: function(e) {
+			console.log("Asdfs");
+			// TODO disable submit button
+			// TODO validate options
+			var optionsArr = viewModel.options();
+			var optionsCleaned = optionsArr
+									.map(function(pollOption) {return pollOption.text();})
+									.filter(function(optionText) {return optionText !== "";})
+			data = {
+				title: viewModel.pollTitle(),
+				options: optionsCleaned,
+				csrfmiddlewaretoken: getCookie('csrftoken')
+			};
+			$.post(e.target,data, function(data, textStatus, jqXHR) {
+				console.log(data);
+			});
+		},
+		checkOptions: function() {
+			var optionsArr = viewModel.options(); // materialized options
+			if (optionsArr.length === 0 || optionsArr[optionsArr.length-1].text() !== "") {
+				// add a new blank option
+				viewModel.options.push(new PollOption());
+			}
+		}
+	}
+
+	viewModel.options.subscribe(viewModel.checkOptions);
+
+	var PollOption = function() {
+		this.text = ko.observable("");
+		this.text.subscribe(viewModel.checkOptions);
+		this.clear = function () {
+			viewModel.options.remove(this);
+		}.bind(this);
+	}
+
+	// start with two blank options
+	viewModel.options.push(new PollOption());
+	viewModel.options.push(new PollOption());
+		
+	ko.applyBindings(viewModel);
+
+})();
