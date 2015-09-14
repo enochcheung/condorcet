@@ -1,0 +1,4 @@
+<h2> #{pollTitle poll}
+<ul>
+$forall Entity pollOptionId pollOption <- pollOptions
+  <li>#{pollOptionName pollOption}

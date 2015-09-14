@@ -7,3 +7,4 @@
 /home HomeR GET POST
 
 / CreateR GET POST
+/v/#PollId VoteR GET

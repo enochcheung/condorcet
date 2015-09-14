@@ -1,26 +1,9 @@
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie != '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
 (function() {
 
 	var viewModel = {
 		pollTitle: ko.observable(""),
 		options: ko.observableArray(),
 		submitPoll: function(e) {
-			console.log("Asdfs");
 			// TODO disable submit button
 			// TODO validate options
 			var optionsArr = viewModel.options();
@@ -29,8 +12,7 @@ function getCookie(name) {
 									.filter(function(optionText) {return optionText !== "";})
 			data = {
 				title: viewModel.pollTitle(),
-				options: optionsCleaned,
-				csrfmiddlewaretoken: getCookie('csrftoken')
+				options: optionsCleaned
 			};
 			$.post(e.target,data, function(data, textStatus, jqXHR) {
 				console.log(data);

@@ -18,7 +18,6 @@ Poll
     deriving Show
 
 PollOption
-    poll Text
-    Foreign Poll fkpoll poll
+    pollId PollId
 	name Text maxlen=255
     deriving Show
